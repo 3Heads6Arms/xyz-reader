@@ -1,50 +1,53 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="4dp"
-    android:layout_marginLeft="4dp"
-    android:layout_marginRight="4dp"
-    android:layout_marginTop="4dp"
+    android:layout_height="@dimen/article_item_height"
     android:clickable="true"
     android:focusable="true"
     android:foreground="?selectableItemBackground"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingEnd="@dimen/keyLine_edge_margin"
+    android:paddingStart="@dimen/keyLine_edge_margin">
 
     <!--suppress AndroidLintContentDescription -->
     <com.example.xyzreader.ui.DynamicHeightNetworkImageView
         android:id="@+id/thumbnail"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:scaleType="fitCenter" />
 
-    <TextView
-        android:id="@+id/article_title"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ellipsize="end"
-        android:maxLines="2"
-        android:textAppearance="@style/TextAppearance.AppCompat.Title"
-        android:textColor="@color/theme_primary_text"
-        tools:text="Book Thief" />
+        android:layout_gravity="bottom"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/article_subtitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ellipsize="end"
-        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-        android:textColor="@color/theme_secondary_text"
-        tools:text="Subtitle of the book" />
+        <TextView
+            android:id="@+id/article_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            android:textColor="@color/theme_primary_text"
+            tools:text="Book Thief" />
 
-    <TextView
-        android:id="@+id/article_publish_date"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ellipsize="end"
-        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-        android:textColor="@color/theme_secondary_text"
-        tools:text="12/01/2017" />
+        <TextView
+            android:id="@+id/article_subtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:textColor="@color/theme_secondary_text"
+            tools:text="Subtitle of the book" />
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/article_publish_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:textColor="@color/theme_secondary_text"
+            tools:text="12/01/2017" />
+    </LinearLayout>
+</FrameLayout>
