@@ -11,5 +11,6 @@
     <dimen name="article_item_height">200dp</dimen>
 
     <dimen name="keyLine_edge_margin">16dp</dimen>
+    <dimen name="keyline_item_margin">8dp</dimen>
 
 </resources>

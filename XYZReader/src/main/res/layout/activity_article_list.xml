@@ -2,6 +2,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <android.support.v4.widget.SwipeRefreshLayout
@@ -18,6 +19,7 @@
             android:paddingTop="116dp"
             android:paddingLeft="@dimen/list_side_margin"
             android:paddingRight="@dimen/list_side_margin"
+            tools:listitem="@layout/list_item_article"
             android:paddingBottom="28dp" />
     </android.support.v4.widget.SwipeRefreshLayout>
 

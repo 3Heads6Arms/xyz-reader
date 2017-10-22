@@ -1,53 +1,55 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="@dimen/article_item_height"
-    android:clickable="true"
-    android:focusable="true"
+    android:layout_marginBottom="@dimen/keyline_item_margin"
+    android:layout_marginEnd="@dimen/keyLine_edge_margin"
+    android:layout_marginStart="@dimen/keyLine_edge_margin"
     android:foreground="?selectableItemBackground"
-    android:orientation="vertical"
-    android:paddingEnd="@dimen/keyLine_edge_margin"
-    android:paddingStart="@dimen/keyLine_edge_margin">
+    android:orientation="vertical">
 
-    <!--suppress AndroidLintContentDescription -->
-    <com.example.xyzreader.ui.DynamicHeightNetworkImageView
-        android:id="@+id/thumbnail"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="fitCenter" />
+        android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:orientation="vertical">
+        <ImageView
+            android:id="@+id/thumbnail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop" />
 
-        <TextView
-            android:id="@+id/article_title"
+        <View
+            android:id="@+id/foreground"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:maxLines="2"
-            android:textAppearance="@style/TextAppearance.AppCompat.Title"
-            android:textColor="@color/theme_primary_text"
-            tools:text="Book Thief" />
+            android:layout_gravity="bottom"
+            android:layout_margin="@dimen/keyline_item_margin"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/article_subtitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-            android:textColor="@color/theme_secondary_text"
-            tools:text="Subtitle of the book" />
+            <TextView
+                android:id="@+id/article_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:textColor="@color/article_title_color"
+                tools:text="Book Thief" />
 
-        <TextView
-            android:id="@+id/article_publish_date"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-            android:textColor="@color/theme_secondary_text"
-            tools:text="12/01/2017" />
-    </LinearLayout>
-</FrameLayout>
+            <TextView
+                android:id="@+id/article_subtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                android:textColor="@color/article_subtitle_color"
+                tools:text="Subtitle of the book" />
+
+        </LinearLayout>
+    </FrameLayout>
+</android.support.v7.widget.CardView>
