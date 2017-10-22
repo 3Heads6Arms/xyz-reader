@@ -2,9 +2,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="@dimen/article_item_height"
-    android:layout_marginBottom="@dimen/keyline_item_margin"
-    android:layout_marginEnd="@dimen/keyLine_edge_margin"
-    android:layout_marginStart="@dimen/keyLine_edge_margin"
+    android:layout_marginBottom="@dimen/keyline_card_edge_margin"
+    android:layout_marginEnd="@dimen/keyline_card_edge_margin"
+    android:layout_marginStart="@dimen/keyline_card_edge_margin"
     android:foreground="?selectableItemBackground"
     android:orientation="vertical">
 
@@ -21,7 +21,8 @@
         <View
             android:id="@+id/foreground"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:background="@color/article_foreground_color" />
 
         <LinearLayout
             android:layout_width="match_parent"
