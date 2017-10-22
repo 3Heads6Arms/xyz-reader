@@ -204,15 +204,16 @@ public class ArticleListActivity extends AppCompatActivity implements
                         @Override
                         public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
                             holder.thumbnailView.setImageBitmap(resource);
-
                             Palette.from(resource).generate(new Palette.PaletteAsyncListener() {
                                 @Override
                                 public void onGenerated(Palette palette) {
                                     Palette.Swatch mutedSwatch = palette.getMutedSwatch();
+
                                     if (mutedSwatch != null) {
+
                                         holder.foreground
                                                 .setBackgroundColor(
-                                                        ColorUtils.setAlphaComponent(mutedSwatch.getRgb(), 130));
+                                                        ColorUtils.setAlphaComponent(mutedSwatch.getRgb(), 160));
                                     }
                                 }
                             });
