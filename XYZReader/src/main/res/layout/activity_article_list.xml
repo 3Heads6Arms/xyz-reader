@@ -16,8 +16,8 @@
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
             android:layout_gravity="bottom"
-            app:layout_scrollFlags="scroll|enterAlways|snap"
-            app:elevation="4dp">
+            app:elevation="4dp"
+            app:layout_scrollFlags="scroll|enterAlways|snap">
 
             <ImageView
                 android:layout_width="wrap_content"
