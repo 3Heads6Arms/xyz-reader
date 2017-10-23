@@ -13,5 +13,7 @@
     <dimen name="keyLine_edge_margin">16dp</dimen>
     <dimen name="keyline_card_edge_margin">8dp</dimen>
     <dimen name="keyline_item_margin">8dp</dimen>
+    <dimen name="keyline_section_margin">16dp</dimen>
+    <dimen name="fragment_image_size">500dp</dimen>
 
 </resources>

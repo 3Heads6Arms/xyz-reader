@@ -2,27 +2,13 @@ package com.example.xyzreader.ui;
 
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.Rect;
-import android.graphics.Typeface;
-import android.graphics.drawable.ColorDrawable;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.GregorianCalendar;
-
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.app.ShareCompat;
 import android.support.v4.content.Loader;
-import android.support.v7.graphics.Palette;
-import android.text.Html;
 import android.text.format.DateUtils;
-import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,13 +16,16 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.ImageLoader;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.xyzreader.R;
 import com.example.xyzreader.data.ArticleLoader;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  * A fragment representing a single Article detail screen. This fragment is
@@ -144,9 +133,6 @@ public class ArticleDetailFragment extends Fragment implements LoaderManager.Loa
         }
 
         if (mCursor != null) {
-            mRootView.setAlpha(0);
-            mRootView.setVisibility(View.VISIBLE);
-            mRootView.animate().alpha(1);
             titleView.setText(mCursor.getString(ArticleLoader.Query.TITLE));
             Date publishedDate = parsePublishedDate();
             if (!publishedDate.before(START_OF_EPOCH.getTime())) {
@@ -165,17 +151,18 @@ public class ArticleDetailFragment extends Fragment implements LoaderManager.Loa
                                 + mCursor.getString(ArticleLoader.Query.AUTHOR));
 
             }
-            bodyView.setText(mCursor.getString(ArticleLoader.Query.BODY));
+            // Trimmed the text because of performance issue. Causes the app to skip frames
+            String bodyText = mCursor.getString(ArticleLoader.Query.BODY);
+            if (bodyText.length() > 10000) {
+                bodyText = String.format("%s%s", bodyText.substring(0, 10000), "...");
+            }
 
-//            Glide.with(this)
-//                    .load(Uri.parse(mCursor.getString(ArticleLoader.Query.THUMB_URL)))
-//                    .apply(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.DATA))
-//                    .into(mPhotoView);
-        } else {
-            mRootView.setVisibility(View.GONE);
-            titleView.setText("N/A");
-            bylineView.setText("N/A");
-            bodyView.setText("N/A");
+            bodyView.setText(bodyText);
+
+            Glide.with(this)
+                    .load(Uri.parse(mCursor.getString(ArticleLoader.Query.THUMB_URL)))
+                    .apply(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.DATA))
+                    .into(mPhotoView);
         }
     }
 
@@ -206,6 +193,5 @@ public class ArticleDetailFragment extends Fragment implements LoaderManager.Loa
     @Override
     public void onLoaderReset(Loader<Cursor> cursorLoader) {
         mCursor = null;
-        bindViews();
     }
 }

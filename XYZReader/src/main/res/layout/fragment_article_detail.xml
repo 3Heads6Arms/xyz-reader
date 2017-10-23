@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ScrollView
+    <android.support.v4.widget.NestedScrollView
         android:id="@+id/scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -18,7 +18,7 @@
             <ImageView
                 android:id="@+id/photo"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="@dimen/fragment_image_size"
                 android:scaleType="centerCrop" />
 
             <TextView
@@ -27,18 +27,18 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/keyLine_edge_margin"
                 android:layout_marginStart="@dimen/keyLine_edge_margin"
-                android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                android:text="Book's title" />
+                android:text="Book's title"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
             <TextView
                 android:id="@+id/article_byline"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/keyline_item_margin"
+                android:layout_marginBottom="@dimen/keyline_section_margin"
                 android:layout_marginEnd="@dimen/keyLine_edge_margin"
                 android:layout_marginStart="@dimen/keyLine_edge_margin"
-                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                android:text="by Author-nim" />
+                android:text="by Author-nim"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
 
             <TextView
                 android:id="@+id/article_body"
@@ -50,7 +50,7 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 tools:text="Body text" />
         </LinearLayout>
-    </ScrollView>
+    </android.support.v4.widget.NestedScrollView>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/share_fab"

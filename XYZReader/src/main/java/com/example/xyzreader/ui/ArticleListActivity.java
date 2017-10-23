@@ -30,6 +30,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
@@ -220,6 +221,7 @@ public class ArticleListActivity extends AppCompatActivity implements
                     })
                     .load(Uri.parse(mCursor.getString(ArticleLoader.Query.THUMB_URL)))
                     .apply(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.DATA))
+                    .transition(new BitmapTransitionOptions().crossFade())
                     .into(holder.thumbnailView);
         }
 

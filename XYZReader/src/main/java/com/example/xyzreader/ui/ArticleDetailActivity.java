@@ -36,10 +36,11 @@ public class ArticleDetailActivity extends AppCompatActivity
         setContentView(R.layout.activity_article_detail);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back_24dp);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         getSupportLoaderManager().initLoader(0, null, this);
-
         mPagerAdapter = new MyPagerAdapter(getSupportFragmentManager());
         mPager = findViewById(R.id.pager);
         mPager.setAdapter(mPagerAdapter);
@@ -90,7 +91,7 @@ public class ArticleDetailActivity extends AppCompatActivity
                     mPager.setCurrentItem(position, false);
                     break;
                 }
-            } while(mCursor.moveToNext());
+            } while (mCursor.moveToNext());
 
             mStartId = 0;
         }
