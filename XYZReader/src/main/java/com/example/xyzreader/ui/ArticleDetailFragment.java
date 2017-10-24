@@ -1,13 +1,10 @@
 package com.example.xyzreader.ui;
 
-import android.content.Intent;
 import android.database.Cursor;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
-import android.support.v4.app.ShareCompat;
 import android.support.v4.content.Loader;
 import android.text.format.DateUtils;
 import android.util.Log;
@@ -15,12 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.RequestOptions;
 import com.example.xyzreader.R;
 import com.example.xyzreader.data.ArticleLoader;
 
@@ -44,7 +37,6 @@ public class ArticleDetailFragment extends Fragment implements LoaderManager.Loa
     private long mItemId;
     private View mRootView;
 
-    private ImageView mPhotoView;
     private boolean mIsCard = false;
 
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.sss");
@@ -102,24 +94,9 @@ public class ArticleDetailFragment extends Fragment implements LoaderManager.Loa
                              Bundle savedInstanceState) {
         mRootView = inflater.inflate(R.layout.fragment_article_detail, container, false);
 
-        mPhotoView = mRootView.findViewById(R.id.photo);
         titleView = mRootView.findViewById(R.id.article_title);
         bylineView = mRootView.findViewById(R.id.article_byline);
         bodyView = mRootView.findViewById(R.id.article_body);
-
-        mRootView.findViewById(R.id.share_fab).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(Intent.createChooser(ShareCompat.IntentBuilder.from(getActivity())
-                        .setType("text/plain")
-                        .setText("Some sample text")
-                        .getIntent(), getString(R.string.action_share)));
-            }
-        });
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            mPhotoView.setTransitionName(getString(R.string.transition_thumbnail) + mItemPosition);
-        }
 
         mRootView.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
             @Override
@@ -179,11 +156,6 @@ public class ArticleDetailFragment extends Fragment implements LoaderManager.Loa
             }
 
             bodyView.setText(bodyText);
-
-            Glide.with(this)
-                    .load(Uri.parse(mCursor.getString(ArticleLoader.Query.THUMB_URL)))
-                    .apply(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.DATA))
-                    .into(mPhotoView);
         }
     }
 

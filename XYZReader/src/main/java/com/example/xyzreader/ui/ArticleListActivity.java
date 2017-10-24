@@ -238,7 +238,7 @@ public class ArticleListActivity extends AppCompatActivity implements
                     .into(holder.thumbnailView);
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                holder.thumbnailView.setTransitionName(getString(R.string.transition_thumbnail) + position);
+                holder.thumbnailView.setTransitionName(getString(R.string.transition_thumbnail) + mCursor.getLong(ArticleLoader.Query._ID));
             }
         }
 
