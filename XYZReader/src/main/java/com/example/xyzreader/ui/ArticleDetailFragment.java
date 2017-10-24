@@ -37,8 +37,6 @@ public class ArticleDetailFragment extends Fragment implements LoaderManager.Loa
     private long mItemId;
     private View mRootView;
 
-    private boolean mIsCard = false;
-
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.sss");
     // Use default locale format
     private SimpleDateFormat outputFormat = new SimpleDateFormat();
@@ -73,8 +71,6 @@ public class ArticleDetailFragment extends Fragment implements LoaderManager.Loa
             mItemId = getArguments().getLong(ARG_ITEM_ID);
             mItemPosition = getArguments().getInt(ARG_ITEM_POSITION);
         }
-
-        mIsCard = getResources().getBoolean(R.bool.detail_is_card);
     }
 
 
