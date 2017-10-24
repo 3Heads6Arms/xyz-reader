@@ -27,8 +27,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/keyLine_edge_margin"
                 android:layout_marginStart="@dimen/keyLine_edge_margin"
-                android:text="Book's title"
-                android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                tools:text="Book's title" />
 
             <TextView
                 android:id="@+id/article_byline"
@@ -37,8 +37,8 @@
                 android:layout_marginBottom="@dimen/keyline_section_margin"
                 android:layout_marginEnd="@dimen/keyLine_edge_margin"
                 android:layout_marginStart="@dimen/keyLine_edge_margin"
-                android:text="by Author-nim"
-                android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                tools:text="by Author-nim" />
 
             <TextView
                 android:id="@+id/article_body"

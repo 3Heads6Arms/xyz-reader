@@ -3,6 +3,7 @@ package com.example.xyzreader.ui;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
@@ -13,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -36,7 +38,7 @@ public class ArticleDetailFragment extends Fragment implements LoaderManager.Loa
     private static final String TAG = "ArticleDetailFragment";
 
     public static final String ARG_ITEM_ID = "item_id";
-    private static final float PARALLAX_FACTOR = 1.25f;
+    public static final String ARG_ITEM_POSITION = "item_position";
 
     private Cursor mCursor;
     private long mItemId;
@@ -53,6 +55,7 @@ public class ArticleDetailFragment extends Fragment implements LoaderManager.Loa
     private TextView titleView;
     private TextView bylineView;
     private TextView bodyView;
+    private int mItemPosition;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -61,9 +64,10 @@ public class ArticleDetailFragment extends Fragment implements LoaderManager.Loa
     public ArticleDetailFragment() {
     }
 
-    public static ArticleDetailFragment newInstance(long itemId) {
+    public static ArticleDetailFragment newInstance(long itemId, int position) {
         Bundle arguments = new Bundle();
         arguments.putLong(ARG_ITEM_ID, itemId);
+        arguments.putInt(ARG_ITEM_POSITION, position);
         ArticleDetailFragment fragment = new ArticleDetailFragment();
         fragment.setArguments(arguments);
         return fragment;
@@ -75,10 +79,10 @@ public class ArticleDetailFragment extends Fragment implements LoaderManager.Loa
 
         if (getArguments().containsKey(ARG_ITEM_ID)) {
             mItemId = getArguments().getLong(ARG_ITEM_ID);
+            mItemPosition = getArguments().getInt(ARG_ITEM_POSITION);
         }
 
         mIsCard = getResources().getBoolean(R.bool.detail_is_card);
-//        setHasOptionsMenu(true);
     }
 
 
@@ -110,6 +114,23 @@ public class ArticleDetailFragment extends Fragment implements LoaderManager.Loa
                         .setType("text/plain")
                         .setText("Some sample text")
                         .getIntent(), getString(R.string.action_share)));
+            }
+        });
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            mPhotoView.setTransitionName(getString(R.string.transition_thumbnail) + mItemPosition);
+        }
+
+        mRootView.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+            @Override
+            public boolean onPreDraw() {
+                mRootView.getViewTreeObserver().removeOnPreDrawListener(this);
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+                    if(getActivity() != null) {
+                        getActivity().supportStartPostponedEnterTransition();
+                    }
+                }
+                return true;
             }
         });
 

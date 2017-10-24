@@ -1,6 +1,7 @@
 package com.example.xyzreader.ui;
 
 import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -39,6 +40,10 @@ public class ArticleDetailActivity extends AppCompatActivity
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back_24dp);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            supportPostponeEnterTransition();
+        }
 
         getSupportLoaderManager().initLoader(0, null, this);
         mPagerAdapter = new MyPagerAdapter(getSupportFragmentManager());
@@ -84,7 +89,6 @@ public class ArticleDetailActivity extends AppCompatActivity
 
         // Select the start ID
         if (mStartId > 0 && mCursor.moveToFirst()) {
-            // TODO: optimize
             do {
                 if (mCursor.getLong(ArticleLoader.Query._ID) == mStartId) {
                     final int position = mCursor.getPosition();
@@ -116,7 +120,7 @@ public class ArticleDetailActivity extends AppCompatActivity
         @Override
         public Fragment getItem(int position) {
             mCursor.moveToPosition(position);
-            return ArticleDetailFragment.newInstance(mCursor.getLong(ArticleLoader.Query._ID));
+            return ArticleDetailFragment.newInstance(mCursor.getLong(ArticleLoader.Query._ID), position);
         }
 
         @Override
