@@ -38,6 +38,8 @@
             android:layout_height="match_parent"
             android:clipToPadding="false"
             android:paddingTop="@dimen/keyline_item_margin"
+            app:layoutManager="android.support.v7.widget.GridLayoutManager"
+            app:spanCount="@integer/list_column_count"
             tools:listitem="@layout/list_item_article" />
     </android.support.v4.widget.SwipeRefreshLayout>
 
