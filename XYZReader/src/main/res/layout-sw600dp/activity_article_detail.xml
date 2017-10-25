@@ -2,7 +2,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/article_subtitle_color"
     android:fitsSystemWindows="true">
 
     <android.support.design.widget.AppBarLayout
@@ -39,11 +38,12 @@
     <android.support.v4.view.ViewPager
         android:id="@+id/pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/keyLine_edge_margin"
-        android:layout_marginLeft="@dimen/keyLine_edge_margin"
-        android:layout_marginRight="@dimen/keyLine_edge_margin"
+        android:layout_height="wrap_content"
         android:layout_marginTop="-100dp"
+        android:clipToPadding="false"
+        android:gravity="center_horizontal"
+        android:paddingLeft="@dimen/keyLine_edge_margin"
+        android:paddingRight="@dimen/keyLine_edge_margin"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 
