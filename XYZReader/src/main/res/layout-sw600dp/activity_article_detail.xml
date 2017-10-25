@@ -39,11 +39,11 @@
         android:id="@+id/pager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="-100dp"
+        android:layout_marginTop="@dimen/viewpager_top_margin"
         android:clipToPadding="false"
         android:gravity="center_horizontal"
-        android:paddingLeft="@dimen/keyLine_edge_margin"
-        android:paddingRight="@dimen/keyLine_edge_margin"
+        android:paddingLeft="@dimen/viewpager_padding"
+        android:paddingRight="@dimen/viewpager_padding"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 

@@ -11,4 +11,8 @@
     <dimen name="keyline_section_margin">16dp</dimen>
     <dimen name="fragment_image_size">300dp</dimen>
 
+
+    <dimen name="viewpager_top_margin">0dp</dimen>
+    <dimen name="pager_item_width">0dp</dimen>
+    <dimen name="viewpager_padding">0dp</dimen>
 </resources>

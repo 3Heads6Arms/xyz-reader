@@ -1,4 +1,7 @@
 <resources>
-    <dimen name="fab_margin">24dp</dimen>
+    <dimen name="fab_margin">88dp</dimen>
     <dimen name="keyLine_edge_margin">64dp</dimen>
+    <dimen name="viewpager_top_margin">-100dp</dimen>
+    <dimen name="pager_item_width">500dp</dimen>
+    <dimen name="viewpager_padding">64dp</dimen>
 </resources>
