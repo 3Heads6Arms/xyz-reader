@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
+import android.text.Html;
+import android.text.Spanned;
 import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -146,10 +148,10 @@ public class ArticleDetailFragment extends Fragment implements LoaderManager.Loa
 
             }
             // Trimmed the text because of performance issue. Causes the app to skip frames
-            String bodyText = mCursor.getString(ArticleLoader.Query.BODY);
-            if (bodyText.length() > 10000) {
-                bodyText = String.format("%s%s", bodyText.substring(0, 10000), "...");
-            }
+            Spanned bodyText = Html.fromHtml(mCursor.getString(ArticleLoader.Query.BODY));
+//            if (bodyText.length() > 10000) {
+//                bodyText = String.format("%s%s", bodyText.substring(0, 10000), "...");
+//            }
 
             bodyView.setText(bodyText);
         }

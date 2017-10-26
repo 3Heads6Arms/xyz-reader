@@ -9,4 +9,5 @@
 
     <string name="up">Up</string>
     <string name="transition_thumbnail">TransitionThumbnail</string>
+    <string name="articles_loaded">Articles loaded</string>
 </resources>

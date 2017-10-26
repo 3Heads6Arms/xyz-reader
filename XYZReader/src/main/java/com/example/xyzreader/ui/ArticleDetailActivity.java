@@ -168,7 +168,7 @@ public class ArticleDetailActivity extends AppCompatActivity
 
     private void loadThumbnail() {
         Glide.with(ArticleDetailActivity.this)
-                .load(Uri.parse(mCursor.getString(ArticleLoader.Query.THUMB_URL)))
+                .load(Uri.parse(mCursor.getString(ArticleLoader.Query.PHOTO_URL)))
                 .apply(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.DATA))
                 .listener(new RequestListener<Drawable>() {
                     @Override

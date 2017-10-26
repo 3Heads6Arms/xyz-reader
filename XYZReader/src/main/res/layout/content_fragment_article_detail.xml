@@ -27,7 +27,7 @@
         android:id="@+id/article_body"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/keyline_item_margin"
+        android:layout_marginBottom="@dimen/keyLine_edge_margin"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         tools:text="Body text" />
 </LinearLayout>

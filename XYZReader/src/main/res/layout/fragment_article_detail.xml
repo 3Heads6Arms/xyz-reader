@@ -1,7 +1,6 @@
 <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/scrollview"
     android:layout_width="match_parent"
-    android:layout_marginBottom="@dimen/keyLine_edge_margin"
     android:layout_height="match_parent">
 
     <include layout="@layout/content_fragment_article_detail" />
