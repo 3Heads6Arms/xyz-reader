@@ -91,6 +91,28 @@ public class ArticleDetailActivity extends AppCompatActivity
 
             }
         });
+        mPager.setPageTransformer(false, new ViewPager.PageTransformer() {
+            @Override
+            public void transformPage(View page, float position) {
+                int pageWidth = page.getMeasuredWidth();
+//                if (position <= -1 || position >= 1) {
+//                    page.setAlpha(0);
+//                } else if (position == 0) {
+//                    page.setAlpha(1);
+//                } else {
+//                    page.setAlpha(1 - Math.abs(position));
+//                }
+                if(position >= -1 && position <= 1){
+                    View title = page.findViewById(R.id.article_title);
+                    View byLine = page.findViewById(R.id.article_byline);
+                    View body = page.findViewById(R.id.article_body);
+
+                    title.setTranslationX(position * pageWidth/10);
+                    byLine.setTranslationX(position * pageWidth/6);
+                    body.setTranslationX(position * pageWidth/2);
+                }
+            }
+        });
 
         findViewById(R.id.share_fab).setOnClickListener(new View.OnClickListener() {
             @Override
