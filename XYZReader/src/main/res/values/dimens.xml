@@ -1,6 +1,6 @@
 <resources>
     <dimen name="fab_elevation">6dp</dimen>
-    <dimen name="fab_press_translation_z">8dp</dimen>
+    <dimen name="fab_press_translation_z">6dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
 
     <dimen name="article_item_height">200dp</dimen>
