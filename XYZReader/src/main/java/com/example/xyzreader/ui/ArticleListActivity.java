@@ -5,14 +5,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
+import android.support.v4.graphics.ColorUtils;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.graphics.Palette;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
@@ -22,6 +27,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.Target;
 import com.example.xyzreader.R;
 import com.example.xyzreader.data.ArticleLoader;
 import com.example.xyzreader.data.ItemsContract;
@@ -186,6 +199,8 @@ public class ArticleListActivity extends AppCompatActivity implements
         @Override
         public void onBindViewHolder(final ViewHolder holder, int position) {
             mCursor.moveToPosition(position);
+
+            float aspectRaiot = mCursor.getFloat(ArticleLoader.Query.ASPECT_RATIO);
             holder.titleView.setText(mCursor.getString(ArticleLoader.Query.TITLE));
             Date publishedDate = parsePublishedDate();
             if (!publishedDate.before(START_OF_EPOCH.getTime())) {
@@ -203,37 +218,38 @@ public class ArticleListActivity extends AppCompatActivity implements
                                 + "<br/>" + " by "
                                 + mCursor.getString(ArticleLoader.Query.AUTHOR)));
             }
-//            Glide.with(ArticleListActivity.this)
-//                    .asBitmap()
-//                    .listener(new RequestListener<Bitmap>() {
-//                        @Override
-//                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
-//                            return false;
-//                        }
-//
-//                        @Override
-//                        public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
-//                            Palette.from(resource).generate(new Palette.PaletteAsyncListener() {
-//                                @Override
-//                                public void onGenerated(Palette palette) {
-//                                    Palette.Swatch mutedSwatch = palette.getMutedSwatch();
-//
-//                                    if (mutedSwatch != null) {
-//                                        holder.foreground
-//                                                .setBackgroundColor(
-//                                                        ColorUtils.setAlphaComponent(mutedSwatch.getRgb(), 160));
-//                                    }
-//                                }
-//                            });
-//                            return false;
-//                        }
-//                    })
-//                    .load(Uri.parse(mCursor.getString(ArticleLoader.Query.THUMB_URL)))
-//                    .apply(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.DATA))
-//                    .transition(new BitmapTransitionOptions().crossFade())
-//                    .into(holder.thumbnailView);
-            holder.thumbnailView.setImageUrl(mCursor.getString(ArticleLoader.Query.THUMB_URL), ImageLoaderHelper.getInstance(ArticleListActivity.this).getImageLoader());
+            Glide.with(ArticleListActivity.this)
+                    .asBitmap()
+                    .listener(new RequestListener<Bitmap>() {
+                        @Override
+                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
+                            return false;
+                        }
+
+                        @Override
+                        public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
+
+                            Palette.from(resource).generate(new Palette.PaletteAsyncListener() {
+                                @Override
+                                public void onGenerated(Palette palette) {
+                                    Palette.Swatch mutedSwatch = palette.getMutedSwatch();
+
+                                    if (mutedSwatch != null) {
+                                        holder.foreground
+                                                .setBackgroundColor(
+                                                        ColorUtils.setAlphaComponent(mutedSwatch.getRgb(), 160));
+                                    }
+                                }
+                            });
+                            return false;
+                        }
+                    })
+                    .load(Uri.parse(mCursor.getString(ArticleLoader.Query.THUMB_URL)))
+                    .apply(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.DATA))
+                    .transition(new BitmapTransitionOptions().crossFade())
+                    .into(holder.thumbnailView);
             holder.thumbnailView.setAspectRatio(mCursor.getFloat(ArticleLoader.Query.ASPECT_RATIO));
+//            holder.thumbnailView.setImageUrl(mCursor.getString(ArticleLoader.Query.THUMB_URL), ImageLoaderHelper.getInstance(ArticleListActivity.this).getImageLoader());
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 holder.thumbnailView.setTransitionName(getString(R.string.transition_thumbnail) + mCursor.getLong(ArticleLoader.Query._ID));
@@ -258,12 +274,14 @@ public class ArticleListActivity extends AppCompatActivity implements
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public DynamicHeightNetworkImageView thumbnailView;
+        public View foreground;
         public TextView titleView;
         public TextView subtitleView;
 
         public ViewHolder(View view) {
             super(view);
             thumbnailView = view.findViewById(R.id.thumbnail);
+            foreground = view.findViewById(R.id.foreground);
             titleView = view.findViewById(R.id.article_title);
             subtitleView = view.findViewById(R.id.article_subtitle);
         }
