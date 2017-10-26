@@ -55,9 +55,7 @@
         android:layout_marginEnd="@dimen/fab_margin"
         android:contentDescription="@string/action_share"
         android:src="@drawable/ic_share"
-        app:elevation="@dimen/fab_elevation"
         app:fabSize="normal"
         app:layout_anchor="@id/toolbar_container"
-        app:layout_anchorGravity="bottom|end"
-        app:pressedTranslationZ="@dimen/fab_press_translation_z" />
+        app:layout_anchorGravity="bottom|end" />
 </android.support.design.widget.CoordinatorLayout>
