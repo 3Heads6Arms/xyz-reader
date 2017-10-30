@@ -1,5 +1,6 @@
 package com.example.xyzreader.ui;
 
+import android.annotation.TargetApi;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
@@ -12,6 +13,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.app.ShareCompat;
+import android.support.v4.app.SharedElementCallback;
 import android.support.v4.content.Loader;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -32,6 +34,9 @@ import com.example.xyzreader.R;
 import com.example.xyzreader.data.ArticleLoader;
 import com.example.xyzreader.data.ItemsContract;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * An activity representing a single Article detail screen, letting you swipe between articles.
  */
@@ -47,6 +52,18 @@ public class ArticleDetailActivity extends AppCompatActivity
     private MyPagerAdapter mPagerAdapter;
     private ImageView mThumbnail;
 
+    private final SharedElementCallback enterCallback = new SharedElementCallback() {
+        @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+        @Override
+        public void onMapSharedElements(List<String> names, Map<String, View> sharedElements) {
+            super.onMapSharedElements(names, sharedElements);
+
+            if (mThumbnail != null) {
+                sharedElements.put(mThumbnail.getTransitionName(), mThumbnail);
+            }
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,12 +73,14 @@ public class ArticleDetailActivity extends AppCompatActivity
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back_24dp);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+        setEnterSharedElementCallback(enterCallback);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             supportPostponeEnterTransition();
         }
 
         getSupportLoaderManager().initLoader(0, null, this);
+
 
         mThumbnail = findViewById(R.id.thumbnail);
 
@@ -81,7 +100,7 @@ public class ArticleDetailActivity extends AppCompatActivity
                 }
                 mSelectedItemId = mCursor.getLong(ArticleLoader.Query._ID);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    mThumbnail.setTransitionName(getString(R.string.transition_thumbnail) + mSelectedItemId);
+                    mThumbnail.setTransitionName(getString(R.string.transition_thumbnail) + position);
                 }
                 loadThumbnail();
             }
@@ -102,14 +121,14 @@ public class ArticleDetailActivity extends AppCompatActivity
 //                } else {
 //                    page.setAlpha(1 - Math.abs(position));
 //                }
-                if(position >= -1 && position <= 1){
+                if (position >= -1 && position <= 1) {
                     View title = page.findViewById(R.id.article_title);
                     View byLine = page.findViewById(R.id.article_byline);
                     View body = page.findViewById(R.id.article_body);
 
-                    title.setTranslationX(position * pageWidth/10);
-                    byLine.setTranslationX(position * pageWidth/6);
-                    body.setTranslationX(position * pageWidth/2);
+                    title.setTranslationX(position * pageWidth / 10);
+                    byLine.setTranslationX(position * pageWidth / 6);
+                    body.setTranslationX(position * pageWidth / 2);
                 }
             }
         });
@@ -171,7 +190,7 @@ public class ArticleDetailActivity extends AppCompatActivity
                     final int position = mCursor.getPosition();
                     mPager.setCurrentItem(position, false);
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        mThumbnail.setTransitionName(getString(R.string.transition_thumbnail) + mSelectedItemId);
+                        mThumbnail.setTransitionName(getString(R.string.transition_thumbnail) + position);
                     }
                     break;
                 }

@@ -1,5 +1,6 @@
 package com.example.xyzreader.ui;
 
+import android.annotation.TargetApi;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +14,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.LoaderManager;
+import android.support.v4.app.SharedElementCallback;
 import android.support.v4.content.Loader;
 import android.support.v4.graphics.ColorUtils;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -44,6 +46,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.Map;
 
 /**
  * An activity representing a list of Articles. This activity has different presentations for
@@ -64,6 +68,29 @@ public class ArticleListActivity extends AppCompatActivity implements
     // Most time functions can only handle 1902 - 2037
     private GregorianCalendar START_OF_EPOCH = new GregorianCalendar(2, 1, 1);
     private Adapter adapter;
+
+    private final SharedElementCallback exitCallback = new SharedElementCallback() {
+
+        @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+        @Override
+        public void onMapSharedElements(List<String> names, Map<String, View> sharedElements) {
+            super.onMapSharedElements(names, sharedElements);
+
+            View imageView = null;
+
+            if (names.size() > 0) {
+                int position = Integer.parseInt(names.get(0).substring(getString(R.string.transition_thumbnail).length()));
+                ViewHolder view = (ViewHolder) mRecyclerView.findViewHolderForAdapterPosition(position);
+                if(view != null) {
+                    imageView = view.thumbnailView;
+                }
+            }
+
+            if(imageView != null){
+                sharedElements.put(imageView.getTransitionName(), imageView);
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +116,8 @@ public class ArticleListActivity extends AppCompatActivity implements
                 refresh();
             }
         });
+
+        setExitSharedElementCallback(exitCallback);
     }
 
     private void refresh() {
@@ -252,7 +281,7 @@ public class ArticleListActivity extends AppCompatActivity implements
 //            holder.thumbnailView.setImageUrl(mCursor.getString(ArticleLoader.Query.THUMB_URL), ImageLoaderHelper.getInstance(ArticleListActivity.this).getImageLoader());
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                holder.thumbnailView.setTransitionName(getString(R.string.transition_thumbnail) + mCursor.getLong(ArticleLoader.Query._ID));
+                holder.thumbnailView.setTransitionName(getString(R.string.transition_thumbnail) + position);
             }
         }
 
