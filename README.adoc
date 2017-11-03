@@ -2,8 +2,9 @@
 
 This app shows part of **Material Design** capability. 
 It implements:
-- **meaningful motion**, MD's animation
-- **Material surface**
-- **Material colors**
-- **Typography**
-- **Responsive UI**, handles different orientation & screen sizes
+
+  * **Meaningful motion**, MD's animation
+  * **Material surface**
+  * **Material colors**
+  * **Typography**
+  * **Responsive UI**, handles different orientation & screen sizes
